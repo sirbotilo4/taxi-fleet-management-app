@@ -1,0 +1,101 @@
+﻿@model IEnumerable<TaxiFleetManager.Models.Trip>
+
+@{
+    ViewData["Title"] = "All Trips";
+}
+
+<h2 class="page-title">All Trips</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/trips.png" alt="Trips" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">Every trip, logged and tracked.</p>
+                <p class="mb-0" style="color: #aaaaaa;">This is a live feed of trips as your drivers log them. You can't create a trip here — only view, correct, or remove entries drivers have already submitted.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="table-responsive d-none d-md-block">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Driver</th>
+                <th>Vehicle</th>
+                <th>Route</th>
+                <th>Passengers</th>
+                <th>Amount</th>
+                <th>Payment</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.TripDate.ToString("dd MMM yyyy, HH:mm")</td>
+                    <td>@item.Driver?.FullName</td>
+                    <td>@item.Vehicle?.RegistrationNumber</td>
+                    <td>@item.Route?.Name</td>
+                    <td>@item.PassengerCount</td>
+                    <td>R @item.AmountCollected.ToString("N2")</td>
+                    <td>@item.PaymentMethod</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.TripId" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.TripId" class="btn btn-secondary btn-sm">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.TripId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="d-md-none">
+    @foreach (var item in Model)
+    {
+        <div class="mobile-card">
+            <div class="mobile-card-title">@item.Driver?.FullName — @item.Route?.Name</div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Date</span>
+                <span>@item.TripDate.ToString("dd MMM yyyy, HH:mm")</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Vehicle</span>
+                <span>@item.Vehicle?.RegistrationNumber</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Passengers</span>
+                <span>@item.PassengerCount</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Amount</span>
+                <span>R @item.AmountCollected.ToString("N2")</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Payment</span>
+                <span>@item.PaymentMethod</span>
+            </div>
+            <div class="mt-2 d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@item.TripId" class="btn btn-primary btn-sm">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.TripId" class="btn btn-secondary btn-sm">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.TripId" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <div class="card">
+        <div class="card-body text-center" style="color: #aaaaaa;">
+            No trips logged yet.
+        </div>
+    </div>
+}

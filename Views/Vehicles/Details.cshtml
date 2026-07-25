@@ -1,0 +1,158 @@
+﻿@model TaxiFleetManager.Models.Vehicle
+
+@{
+    ViewData["Title"] = "Vehicle Details";
+}
+
+<h2 class="page-title">Vehicle Details</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/vehicles.png" alt="Vehicles" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">@Model.RegistrationNumber</p>
+                <p class="mb-0" style="color: #aaaaaa;">@Model.Make @Model.Model — full performance and profitability breakdown below.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">Vehicle Information</div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4 text-warning">Registration</dt>
+                    <dd class="col-sm-8">@Model.RegistrationNumber</dd>
+
+                    <dt class="col-sm-4 text-warning">Make / Model</dt>
+                    <dd class="col-sm-8">@Model.Make @Model.Model</dd>
+
+                    <dt class="col-sm-4 text-warning">Capacity</dt>
+                    <dd class="col-sm-8">@Model.Capacity passengers</dd>
+
+                    <dt class="col-sm-4 text-warning">Status</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.Status == "Active")
+                        {
+                            <span class="badge-active">Active</span>
+                        }
+                        else if (Model.Status == "In Maintenance")
+                        {
+                            <span class="badge-maintenance">In Maintenance</span>
+                        }
+                        else
+                        {
+                            <span class="badge-inactive">Inactive</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-4 text-warning">Assigned Driver</dt>
+                    <dd class="col-sm-8">@(Model.Driver != null ? Model.Driver.FullName : "Unassigned")</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-6">
+                <div class="stat-card">
+                    <div class="stat-value">@ViewBag.TotalTrips</div>
+                    <div class="stat-label">Total Trips</div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="stat-card">
+                    <div class="stat-value">R @(((decimal)ViewBag.TotalRevenue).ToString("N2"))</div>
+                    <div class="stat-label">Total Revenue</div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="stat-card">
+                    <div class="stat-value">R @(((decimal)ViewBag.TotalExpenses).ToString("N2"))</div>
+                    <div class="stat-label">Total Expenses</div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="stat-card">
+                    <div class="stat-value">R @(((decimal)ViewBag.NetProfit).ToString("N2"))</div>
+                    <div class="stat-label">Net Profit</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Trips != null && Model.Trips.Any())
+{
+    <div class="card mb-4">
+        <div class="card-header">Recent Trips</div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Driver</th>
+                            <th>Route</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var trip in Model.Trips.OrderByDescending(t => t.TripDate).Take(10))
+                        {
+                            <tr>
+                                <td>@trip.TripDate.ToString("dd MMM yyyy")</td>
+                                <td>@trip.Driver?.FullName</td>
+                                <td>@trip.Route?.Name</td>
+                                <td>R @trip.AmountCollected.ToString("N2")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.Expenses != null && Model.Expenses.Any())
+{
+    <div class="card mb-4">
+        <div class="card-header">Recent Expenses</div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var expense in Model.Expenses.OrderByDescending(e => e.ExpenseDate).Take(10))
+                        {
+                            <tr>
+                                <td>@expense.ExpenseDate.ToString("dd MMM yyyy")</td>
+                                <td>@expense.ExpenseType</td>
+                                <td>R @expense.Amount.ToString("N2")</td>
+                                <td>@(string.IsNullOrEmpty(expense.Description) ? "-" : expense.Description)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="d-flex gap-2">
+    <a asp-action="Edit" asp-route-id="@Model?.VehicleId" class="btn btn-primary">Edit Vehicle</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

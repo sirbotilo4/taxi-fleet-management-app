@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Driver Login";
+}
+
+<h2 class="page-title">Driver Login</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/driver.png" alt="Driver" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">Welcome back.</p>
+                <p class="mb-0" style="color: #aaaaaa;">Select your name and enter your PIN to access your dashboard and log trips.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header">Driver Access</div>
+            <div class="card-body">
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert-danger p-3 rounded mb-3">
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    </div>
+                }
+
+                <form asp-action="DriverLogin" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Select Your Name</label>
+                        <select name="driverId" class="form-select" asp-items="ViewBag.DriverId as SelectList">
+                            <option value="">-- Select Driver --</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">PIN</label>
+                        <input type="password" name="pin" class="form-control" maxlength="4" placeholder="Enter your 4-digit PIN" />
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <input type="submit" value="Login" class="btn btn-primary" />
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

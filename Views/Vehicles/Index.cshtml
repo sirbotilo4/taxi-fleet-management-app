@@ -1,0 +1,115 @@
+﻿@model IEnumerable<TaxiFleetManager.Models.Vehicle>
+
+@{
+    ViewData["Title"] = "Vehicles";
+}
+
+<h2 class="page-title">Vehicles</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/vehicles.png" alt="Vehicles" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">Your fleet, at a glance.</p>
+                <p class="mb-0" style="color: #aaaaaa;">Manage every vehicle in your fleet. Click into a vehicle to see its full trip history, expenses, and profit breakdown.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">+ Add New Vehicle</a>
+</div>
+
+<div class="table-responsive d-none d-md-block">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Registration</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Capacity</th>
+                <th>Status</th>
+                <th>Assigned Driver</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.RegistrationNumber</td>
+                    <td>@item.Make</td>
+                    <td>@item.Model</td>
+                    <td>@item.Capacity</td>
+                    <td>
+                        @if (item.Status == "Active")
+                        {
+                            <span class="badge-active">Active</span>
+                        }
+                        else if (item.Status == "In Maintenance")
+                        {
+                            <span class="badge-maintenance">In Maintenance</span>
+                        }
+                        else
+                        {
+                            <span class="badge-inactive">Inactive</span>
+                        }
+                    </td>
+                    <td>@(item.Driver != null ? item.Driver.FullName : "Unassigned")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.VehicleId" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.VehicleId" class="btn btn-secondary btn-sm">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.VehicleId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="d-md-none">
+    @foreach (var item in Model)
+    {
+        <div class="mobile-card">
+            <div class="mobile-card-title">@item.RegistrationNumber</div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Make/Model</span>
+                <span>@item.Make @item.Model</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Capacity</span>
+                <span>@item.Capacity</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Status</span>
+                <span>
+                    @if (item.Status == "Active")
+                    {
+                        <span class="badge-active">Active</span>
+                    }
+                    else if (item.Status == "In Maintenance")
+                    {
+                        <span class="badge-maintenance">In Maintenance</span>
+                    }
+                    else
+                    {
+                        <span class="badge-inactive">Inactive</span>
+                    }
+                </span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Driver</span>
+                <span>@(item.Driver != null ? item.Driver.FullName : "Unassigned")</span>
+            </div>
+            <div class="mt-2 d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@item.VehicleId" class="btn btn-primary btn-sm">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.VehicleId" class="btn btn-secondary btn-sm">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.VehicleId" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </div>
+    }
+</div>
