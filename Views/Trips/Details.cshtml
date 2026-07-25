@@ -1,0 +1,64 @@
+﻿@model TaxiFleetManager.Models.Trip
+
+@{
+    ViewData["Title"] = "Trip Details";
+}
+
+<h2 class="page-title">Trip Details</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/trips.png" alt="Trips" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">Trip Record</p>
+                <p class="mb-0" style="color: #aaaaaa;">Full details for this trip. As owner, you can edit any trip entry if a correction is needed.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">Trip Information</div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4 text-warning">Date</dt>
+                    <dd class="col-sm-8">@Model.TripDate.ToString("dd MMM yyyy, HH:mm")</dd>
+
+                    <dt class="col-sm-4 text-warning">Driver</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Driver.FullName)</dd>
+
+                    <dt class="col-sm-4 text-warning">Vehicle</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Vehicle.RegistrationNumber)</dd>
+
+                    <dt class="col-sm-4 text-warning">Route</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Route.Name)</dd>
+
+                    <dt class="col-sm-4 text-warning">Passengers</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.PassengerCount)</dd>
+
+                    <dt class="col-sm-4 text-warning">Amount Collected</dt>
+                    <dd class="col-sm-8">R @Model.AmountCollected.ToString("N2")</dd>
+
+                    <dt class="col-sm-4 text-warning">Payment Method</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.PaymentMethod)</dd>
+
+                    @if (!string.IsNullOrEmpty(Model.PaymentReference))
+                    {
+                        <dt class="col-sm-4 text-warning">Payment Reference</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.PaymentReference)</dd>
+                    }
+                </dl>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2">
+            <a asp-action="Edit" asp-route-id="@Model?.TripId" class="btn btn-primary">Edit Trip</a>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿@model TaxiFleetManager.Models.TaxiRoute
+
+@{
+    ViewData["Title"] = "Add Route";
+}
+
+<h2 class="page-title">Add New Route</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/routes.png" alt="Routes" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">Every route tells your fleet where to go and what to charge.</p>
+                <p class="mb-0" style="color: #aaaaaa;">Set up a route once — local or long-distance — and it becomes available for drivers to log trips against. Fare changes here apply instantly across the fleet.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Route Information</div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Route Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="e.g. Town - KwaZakhele" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="StartPoint" class="form-label">Start Point</label>
+                        <input asp-for="StartPoint" class="form-control" placeholder="e.g. Town" />
+                        <span asp-validation-for="StartPoint" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="EndPoint" class="form-label">End Point</label>
+                        <input asp-for="EndPoint" class="form-control" placeholder="e.g. KwaZakhele" />
+                        <span asp-validation-for="EndPoint" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="StandardFare" class="form-label">Standard Fare (R)</label>
+                        <input asp-for="StandardFare" class="form-control" placeholder="e.g. 15.00" />
+                        <span asp-validation-for="StandardFare" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="RouteType" class="form-label">Route Type</label>
+                        <select asp-for="RouteType" class="form-select">
+                            <option value="Local">Local</option>
+                            <option value="LongDistance">Long Distance</option>
+                        </select>
+                        <span asp-validation-for="RouteType" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input asp-for="IsActive" class="form-check-input" checked />
+                        <label asp-for="IsActive" class="form-check-label">Active (visible to drivers)</label>
+                        <span asp-validation-for="IsActive" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <input type="submit" value="Save Route" class="btn btn-primary" />
+                        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

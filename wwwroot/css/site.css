@@ -1,0 +1,300 @@
+/* =============================================
+   TAXI FLEET MANAGER — Global Theme
+   ============================================= */
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+body {
+    background-color: #2b2b2b;
+    color: #f0f0f0;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    flex: 1 0 auto;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #1a1a1a !important;
+    border-bottom: 3px solid #f5a623;
+}
+
+.navbar-brand {
+    color: #f5a623 !important;
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    color: #f0f0f0 !important;
+    font-weight: 500;
+}
+
+    .nav-link:hover {
+        color: #f5a623 !important;
+    }
+
+.dropdown-menu {
+    background-color: #1a1a1a;
+    border: 1px solid #f5a623;
+}
+
+.dropdown-item {
+    color: #f0f0f0;
+}
+
+    .dropdown-item:hover {
+        background-color: #f5a623;
+        color: #1a1a1a;
+    }
+
+/* Page headings */
+.page-title {
+    color: #f5a623;
+    font-weight: 700;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #f5a623;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Cards */
+.card {
+    background-color: #3a3a3a;
+    border: 1px solid #4a4a4a;
+    border-radius: 10px;
+    color: #f0f0f0;
+}
+
+.card-header {
+    background-color: #1a1a1a;
+    border-bottom: 2px solid #f5a623;
+    color: #f5a623;
+    font-weight: 600;
+}
+
+/* Tables */
+.table {
+    color: #f0f0f0;
+}
+
+    .table thead th {
+        background-color: #1a1a1a;
+        color: #f5a623;
+        border-bottom: 2px solid #f5a623;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+    .table tbody tr {
+        border-bottom: 1px solid #4a4a4a;
+        transition: background-color 0.2s;
+    }
+
+        .table tbody tr:hover {
+            background-color: #444444;
+        }
+
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #4a4a4a;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #f5a623;
+    border-color: #f5a623;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+    .btn-primary:hover {
+        background-color: #d4911e;
+        border-color: #d4911e;
+        color: #1a1a1a;
+    }
+
+.btn-secondary {
+    background-color: #4a4a4a;
+    border-color: #4a4a4a;
+    color: #f0f0f0;
+}
+
+    .btn-secondary:hover {
+        background-color: #5a5a5a;
+        border-color: #5a5a5a;
+    }
+
+.btn-danger {
+    background-color: #c0392b;
+    border-color: #c0392b;
+}
+
+    .btn-danger:hover {
+        background-color: #a93226;
+        border-color: #a93226;
+    }
+
+.btn-warning {
+    background-color: #f5a623;
+    border-color: #f5a623;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+/* Forms */
+.form-control, .form-select {
+    background-color: #3a3a3a;
+    border: 1px solid #555555;
+    color: #f0f0f0;
+}
+
+    .form-control:focus, .form-select:focus {
+        background-color: #3a3a3a;
+        border-color: #f5a623;
+        color: #f0f0f0;
+        box-shadow: 0 0 0 0.2rem rgba(245, 166, 35, 0.25);
+    }
+
+.form-label {
+    color: #f5a623;
+    font-weight: 500;
+}
+
+/* Stat cards (for dashboards) */
+.stat-card {
+    background-color: #3a3a3a;
+    border-left: 4px solid #f5a623;
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1rem;
+}
+
+    .stat-card .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #f5a623;
+    }
+
+    .stat-card .stat-label {
+        font-size: 0.85rem;
+        color: #aaaaaa;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+/* Mobile cards (for responsive table alternative) */
+.mobile-card {
+    background-color: #3a3a3a;
+    border: 1px solid #4a4a4a;
+    border-left: 4px solid #f5a623;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+    .mobile-card .mobile-card-title {
+        color: #f5a623;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .mobile-card .mobile-card-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.875rem;
+        padding: 0.2rem 0;
+        border-bottom: 1px solid #4a4a4a;
+    }
+
+        .mobile-card .mobile-card-row:last-child {
+            border-bottom: none;
+        }
+
+    .mobile-card .mobile-card-label {
+        color: #aaaaaa;
+    }
+
+/* Badges */
+.badge-active {
+    background-color: #27ae60;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-inactive {
+    background-color: #c0392b;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-maintenance {
+    background-color: #f5a623;
+    color: #1a1a1a;
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Footer */
+.footer {
+    background-color: #1a1a1a;
+    border-top: 3px solid #f5a623;
+    color: #f5a623;
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    position: static !important;
+}
+
+/* Alerts */
+.alert-success {
+    background-color: #1e3a2b;
+    border-color: #27ae60;
+    color: #2ecc71;
+}
+
+.alert-danger {
+    background-color: #3a1e1e;
+    border-color: #c0392b;
+    color: #e74c3c;
+}

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<TaxiFleetManager.Models.Expense>
+
+@{
+    ViewData["Title"] = "Expenses";
+}
+
+<h2 class="page-title">Expenses</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/expenses.png" alt="Expenses" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">Know where every rand is going.</p>
+                <p class="mb-0" style="color: #aaaaaa;">A complete record of all fleet expenses. Log fuel, maintenance, fines and more against each vehicle to get a true picture of your operational costs and profitability.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">+ Log New Expense</a>
+</div>
+
+
+<div class="table-responsive d-none d-md-block">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Vehicle</th>
+                <th>Expense Type</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Vehicle?.RegistrationNumber</td>
+                    <td>@item.ExpenseType</td>
+                    <td>R @item.Amount.ToString("N2")</td>
+                    <td>@item.ExpenseDate.ToString("dd MMM yyyy")</td>
+                    <td>@(string.IsNullOrEmpty(item.Description) ? "-" : item.Description)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ExpenseId" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.ExpenseId" class="btn btn-secondary btn-sm">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.ExpenseId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div class="d-md-none">
+    @foreach (var item in Model)
+    {
+        <div class="mobile-card">
+            <div class="mobile-card-title">@item.ExpenseType — @item.Vehicle?.RegistrationNumber</div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Amount</span>
+                <span>R @item.Amount.ToString("N2")</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Date</span>
+                <span>@item.ExpenseDate.ToString("dd MMM yyyy")</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Description</span>
+                <span>@(string.IsNullOrEmpty(item.Description) ? "-" : item.Description)</span>
+            </div>
+            <div class="mt-2 d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@item.ExpenseId" class="btn btn-primary btn-sm">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.ExpenseId" class="btn btn-secondary btn-sm">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.ExpenseId" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </div>
+    }
+</div>

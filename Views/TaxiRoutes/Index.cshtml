@@ -1,0 +1,109 @@
+﻿@model IEnumerable<TaxiFleetManager.Models.TaxiRoute>
+
+@{
+    ViewData["Title"] = "Routes";
+}
+
+<h2 class="page-title">Routes</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/routes.png" alt="Routes" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">From the local rank run to the long haul.</p>
+                <p class="mb-0" style="color: #aaaaaa;">Manage every route your fleet operates — local or long-distance. Click a route to see its full trip history and revenue breakdown, or mark it inactive to discontinue it without losing past data.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">+ Add New Route</a>
+</div>
+
+
+<div class="table-responsive d-none d-md-block">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Route Name</th>
+                <th>Start Point</th>
+                <th>End Point</th>
+                <th>Standard Fare</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.StartPoint</td>
+                    <td>@item.EndPoint</td>
+                    <td>R @item.StandardFare.ToString("N2")</td>
+                    <td>@item.RouteType</td>
+                    <td>
+                        @if (item.IsActive)
+                        {
+                            <span class="badge-active">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge-inactive">Inactive</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.RouteId" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.RouteId" class="btn btn-secondary btn-sm">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.RouteId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div class="d-md-none">
+    @foreach (var item in Model)
+    {
+        <div class="mobile-card">
+            <div class="mobile-card-title">@item.Name</div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">From → To</span>
+                <span>@item.StartPoint → @item.EndPoint</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Fare</span>
+                <span>R @item.StandardFare.ToString("N2")</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Type</span>
+                <span>@item.RouteType</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Status</span>
+                <span>
+                    @if (item.IsActive)
+                    {
+                        <span class="badge-active">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge-inactive">Inactive</span>
+                    }
+                </span>
+            </div>
+            <div class="mt-2 d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@item.RouteId" class="btn btn-primary btn-sm">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.RouteId" class="btn btn-secondary btn-sm">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.RouteId" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </div>
+    }
+</div>

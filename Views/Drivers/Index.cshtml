@@ -1,0 +1,107 @@
+﻿@model IEnumerable<TaxiFleetManager.Models.Driver>
+
+@{
+    ViewData["Title"] = "Drivers";
+}
+
+<h2 class="page-title">Drivers</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/driver.png" alt="Driver" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">Your drivers are the heartbeat of your fleet.</p>
+                <p class="mb-0" style="color: #aaaaaa;">Manage your driver roster here. Add new drivers, update their details, assign PINs, or remove them from the system. Click a driver's name to view their full profile and trip history.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">+ Add New Driver</a>
+</div>
+
+
+<div class="table-responsive d-none d-md-block">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Contact Number</th>
+                <th>License Number</th>
+                <th>Hire Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FullName</td>
+                    <td>@item.ContactNumber</td>
+                    <td>@item.LicenseNumber</td>
+                    <td>@item.HireDate.ToString("dd MMM yyyy")</td>
+                    <td>
+                        @if (item.Status == "Active")
+                        {
+                            <span class="badge-active">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge-inactive">Inactive</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.DriverId" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.DriverId" class="btn btn-secondary btn-sm">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.DriverId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div class="d-md-none">
+    @foreach (var item in Model)
+    {
+        <div class="mobile-card">
+            <div class="mobile-card-title">@item.FullName</div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Contact</span>
+                <span>@item.ContactNumber</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">License</span>
+                <span>@item.LicenseNumber</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Hire Date</span>
+                <span>@item.HireDate.ToString("dd MMM yyyy")</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Status</span>
+                <span>
+                    @if (item.Status == "Active")
+                    {
+                        <span class="badge-active">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge-inactive">Inactive</span>
+                    }
+                </span>
+            </div>
+            <div class="mt-2 d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@item.DriverId" class="btn btn-primary btn-sm">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.DriverId" class="btn btn-secondary btn-sm">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.DriverId" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </div>
+    }
+</div>

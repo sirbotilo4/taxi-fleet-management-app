@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="text-center py-5">
+    <h1 class="page-title" style="border-bottom: none; display: inline-block;">Taxi Fleet Manager</h1>
+    <p class="mb-5" style="color: #aaaaaa; font-size: 1.1rem;">Manage your fleet, or log in to track your trips.</p>
+
+    <div class="row justify-content-center g-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center py-5">
+                    <h3 style="color: #f5a623;">I'm the Owner</h3>
+                    <p style="color: #aaaaaa;" class="mb-4">Manage vehicles, drivers, routes, and view fleet performance.</p>
+                    <a asp-controller="Vehicles" asp-action="Index" class="btn btn-primary">Go to Dashboard</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center py-5">
+                    <h3 style="color: #f5a623;">I'm a Driver</h3>
+                    <p style="color: #aaaaaa;" class="mb-4">Log in with your PIN to log trips and view your performance.</p>
+                    <a asp-controller="Trips" asp-action="DriverLogin" class="btn btn-primary">Driver Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

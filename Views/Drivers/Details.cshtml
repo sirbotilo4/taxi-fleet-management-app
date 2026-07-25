@@ -1,0 +1,99 @@
+﻿@model TaxiFleetManager.Models.Driver
+
+@{
+    ViewData["Title"] = "Driver Details";
+}
+
+<h2 class="page-title">Driver Details</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/driver.png" alt="Driver" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">Driver Profile</p>
+                <p class="mb-0" style="color: #aaaaaa;">View full details for this driver including their contact information, license, and current status. Use the actions below to edit or remove them from the fleet.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">Personal Information</div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4 text-warning">Full Name</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.FullName)</dd>
+
+                    <dt class="col-sm-4 text-warning">Contact Number</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.ContactNumber)</dd>
+
+                    <dt class="col-sm-4 text-warning">License Number</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.LicenseNumber)</dd>
+
+                    <dt class="col-sm-4 text-warning">Hire Date</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.HireDate)</dd>
+
+                    <dt class="col-sm-4 text-warning">Status</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.Status == "Active")
+                        {
+                            <span class="badge-active">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge-inactive">Inactive</span>
+                        }
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+        @if (Model.Vehicles != null && Model.Vehicles.Any())
+        {
+            <div class="card mb-4">
+                <div class="card-header">Assigned Vehicle</div>
+                <div class="card-body">
+                    @foreach (var vehicle in Model.Vehicles)
+                    {
+                        <p class="mb-1"><span style="color: #f5a623;">Registration:</span> @vehicle.RegistrationNumber</p>
+                        <p class="mb-1"><span style="color: #f5a623;">Make/Model:</span> @vehicle.Make @vehicle.Model</p>
+                        <p class="mb-0"><span style="color: #f5a623;">Status:</span> @vehicle.Status</p>
+                    }
+                </div>
+            </div>
+        }
+
+        @if (Model.Trips != null && Model.Trips.Any())
+        {
+            <div class="card mb-4">
+                <div class="card-header">Trip Summary</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-value">@Model.Trips.Count</div>
+                                <div class="stat-label">Total Trips</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-value">R @Model.Trips.Sum(t => t.AmountCollected).ToString("N2")</div>
+                                <div class="stat-label">Total Revenue</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="d-flex gap-2">
+            <a asp-action="Edit" asp-route-id="@Model?.DriverId" class="btn btn-primary">Edit Driver</a>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

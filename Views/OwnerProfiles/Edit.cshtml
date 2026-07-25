@@ -1,0 +1,84 @@
+﻿@model TaxiFleetManager.Models.OwnerProfile
+
+@{
+    ViewData["Title"] = "Business Settings";
+}
+
+<h2 class="page-title">Business Settings</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/owner.png" alt="Owner" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">Your business, your details.</p>
+                <p class="mb-0" style="color: #aaaaaa;">Keep your business name, contact details, and banking information up to date. This information represents your fleet business across the system.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Business Information</div>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="OwnerId" />
+
+                    <div class="mb-3">
+                        <label asp-for="BusinessName" class="form-label">Business Name</label>
+                        <input asp-for="BusinessName" class="form-control" />
+                        <span asp-validation-for="BusinessName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="FullName" class="form-label">Owner Full Name</label>
+                        <input asp-for="FullName" class="form-control" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ContactNumber" class="form-label">Contact Number</label>
+                        <input asp-for="ContactNumber" class="form-control" />
+                        <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                    </div>
+
+                    <hr style="border-color: #4a4a4a;" />
+                    <p style="color: #f5a623; font-weight: 600; font-size: 0.9rem;">BANKING DETAILS (optional)</p>
+
+                    <div class="mb-3">
+                        <label asp-for="BankName" class="form-label">Bank Name</label>
+                        <input asp-for="BankName" class="form-control" placeholder="e.g. FNB, Capitec, Absa" />
+                        <span asp-validation-for="BankName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="AccountNumber" class="form-label">Account Number</label>
+                        <input asp-for="AccountNumber" class="form-control" />
+                        <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="BranchCode" class="form-label">Branch Code</label>
+                        <input asp-for="BranchCode" class="form-control" />
+                        <span asp-validation-for="BranchCode" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <input type="submit" value="Save Changes" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

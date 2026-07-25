@@ -1,0 +1,116 @@
+﻿@model IEnumerable<TaxiFleetManager.Models.Trip>
+
+@{
+    ViewData["Title"] = "My Dashboard";
+}
+
+<h2 class="page-title">My Dashboard</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/driver.png" alt="Driver" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">Welcome back, @ViewBag.DriverName.</p>
+                <p class="mb-0" style="color: #aaaaaa;">Here's your trip history and performance. Log a new trip whenever you're ready.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-value">@ViewBag.TotalTrips</div>
+            <div class="stat-label">Total Trips</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-card">
+            <div class="stat-value">R @(((decimal)ViewBag.TotalRevenue).ToString("N2"))</div>
+            <div class="stat-label">Total Revenue</div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex gap-2 mb-4">
+    <a asp-action="LogTrip" class="btn btn-primary">+ Log New Trip</a>
+    <a asp-action="DriverLogout" class="btn btn-secondary">Logout</a>
+</div>
+
+
+<div class="table-responsive d-none d-md-block">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Route</th>
+                <th>Vehicle</th>
+                <th>Passengers</th>
+                <th>Amount</th>
+                <th>Payment</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trip in Model)
+            {
+                <tr>
+                    <td>@trip.TripDate.ToString("dd MMM yyyy, HH:mm")</td>
+                    <td>@trip.Route?.Name</td>
+                    <td>@trip.Vehicle?.RegistrationNumber</td>
+                    <td>@trip.PassengerCount</td>
+                    <td>R @trip.AmountCollected.ToString("N2")</td>
+                    <td>@trip.PaymentMethod</td>
+                    <td>
+                        <a asp-action="DriverEdit" asp-route-id="@trip.TripId" class="btn btn-primary btn-sm">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div class="d-md-none">
+    @foreach (var trip in Model)
+    {
+        <div class="mobile-card">
+            <div class="mobile-card-title">@trip.Route?.Name</div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Date</span>
+                <span>@trip.TripDate.ToString("dd MMM yyyy, HH:mm")</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Vehicle</span>
+                <span>@trip.Vehicle?.RegistrationNumber</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Passengers</span>
+                <span>@trip.PassengerCount</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Amount</span>
+                <span>R @trip.AmountCollected.ToString("N2")</span>
+            </div>
+            <div class="mobile-card-row">
+                <span class="mobile-card-label">Payment</span>
+                <span>@trip.PaymentMethod</span>
+            </div>
+            <div class="mt-2">
+                <a asp-action="DriverEdit" asp-route-id="@trip.TripId" class="btn btn-primary btn-sm">Edit</a>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <div class="card">
+        <div class="card-body text-center" style="color: #aaaaaa;">
+            No trips logged yet. Click "Log New Trip" above to get started.
+        </div>
+    </div>
+}

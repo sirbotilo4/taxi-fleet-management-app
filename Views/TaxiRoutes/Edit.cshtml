@@ -1,0 +1,84 @@
+﻿@model TaxiFleetManager.Models.TaxiRoute
+
+@{
+    ViewData["Title"] = "Edit Route";
+}
+
+<h2 class="page-title">Edit Route</h2>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-3">
+        <img src="~/images/routes.png" alt="Routes" style="height: 150px; object-fit: contain;" />
+    </div>
+    <div class="col-md-9">
+        <div class="card h-100">
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 1.1rem; color: #f5a623; font-weight: 600;">Update Route Details</p>
+                <p class="mb-0" style="color: #aaaaaa;">Changes to the fare or status apply immediately — drivers will see the updated fare next time they log a trip. Mark a route inactive to discontinue it without losing trip history.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Route Information</div>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="RouteId" />
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Route Name</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="StartPoint" class="form-label">Start Point</label>
+                        <input asp-for="StartPoint" class="form-control" />
+                        <span asp-validation-for="StartPoint" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="EndPoint" class="form-label">End Point</label>
+                        <input asp-for="EndPoint" class="form-control" />
+                        <span asp-validation-for="EndPoint" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="StandardFare" class="form-label">Standard Fare (R)</label>
+                        <input asp-for="StandardFare" class="form-control" />
+                        <span asp-validation-for="StandardFare" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="RouteType" class="form-label">Route Type</label>
+                        <select asp-for="RouteType" class="form-select">
+                            <option value="Local">Local</option>
+                            <option value="LongDistance">Long Distance</option>
+                        </select>
+                        <span asp-validation-for="RouteType" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input asp-for="IsActive" class="form-check-input" />
+                        <label asp-for="IsActive" class="form-check-label">Active (visible to drivers)</label>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <input type="submit" value="Save Changes" class="btn btn-primary" />
+                        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
